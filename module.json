@@ -1,0 +1,33 @@
+{
+  "id": "momos-token-changer",
+  "title": "Momo's Token Changer",
+  "description": "Lets you chnage the token art on the go.",
+
+  "authors": [
+    {
+      "name": "Momo",
+      "discord": "mómó#3132"
+    }
+  ],
+
+  "version": "0.0.1",
+
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10"
+  },
+
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+
+  "scripts": [
+    "scripts/image-selection.js",
+    "scripts/settings.js"
+  ],
+  "styles": [ "./css/momos-token-changer.css" ]
+}

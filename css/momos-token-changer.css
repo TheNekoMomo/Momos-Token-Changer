@@ -1,0 +1,45 @@
+.momos-token-changer-selector-wrap {
+    position: absolute;
+    left: 75px;
+    visibility: hidden;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: max-content;
+    max-width: 355px;
+    max-height: 350px;
+    text-align: start;
+    grid-template-columns: 100px 100px 100px;
+    overflow-y: auto;
+}
+
+.momos-token-changer-selector-wrap.active {
+    visibility: visible !important;
+}
+
+.momos-token-changer-button-select {
+    max-width: 300px;
+    overflow-wrap: break-word;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: max-content !important;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+}
+
+.momos-token-changer-button-image {
+    width: 100px;
+    height: 100px;
+    margin: 2px;
+    object-fit: contain;
+}
+
+.momos-token-changer-button-disabled span, .momos-token-changer-button-disabled img {
+    opacity: 1 !important;
+    filter: grayscale(100%);
+}
+
+.momos-token-changer-button-disabled span, .momos-token-changer-button-disabled:hover img {
+    /* opacity: 0.7 !important; */
+    color: #CCC;
+}
