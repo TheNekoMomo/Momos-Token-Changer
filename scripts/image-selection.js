@@ -1,16 +1,21 @@
-console.log("Test.js is loaded");
+// fires when 
+Hooks.on("renderTokenConfig", function (config, html) {
+    console.log(config.token._id);
+});
 
+// fires when the token HUD is called to be rended
 Hooks.on("renderTokenHUD", async function (hud, html, token) {
-    console.log("%c Momo's Token Changer Rending HUD", "color: green; font-size: 15px");
 
     const images = await game.actors.get(token.actorId)?.getTokenImages() ?? [];
-
-    // TODO set to 2, at 0 for testing
-    if (images.length < 0) {
-        return
+    if (images.length < 2) {
+        return;
     }
 
+    console.log("%c Momo's Token Changer Rending HUD", "color: green; font-size: 15px");
+
     const imageSelectionDisplay = game.settings.get("momos-token-changer", "imageSelectionDisplay");
+
+    //TODO clean up and fix for versons 12+
     const imagesParsed = images.map(im => {
         const split = im.split('/');
         var extension = im.split('.');
@@ -19,6 +24,7 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
         const vid = ['webm', 'mp4', 'm4v'].includes(extension);
         return { route: im, name: split[split.length - 1], used: im === token.img, img, vid, type: img || vid };
     });
+    //
 
     const wildcardDisplay = await renderTemplate("/modules/momos-token-changer/html/hud.html", { imageSelectionDisplay, imagesParsed });
 
@@ -47,17 +53,36 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
     buttons.map(function (button) {
         buttons[button].addEventListener("click", function (event) {
 
-            const controlled = canvas.tokens.controlled;
-            const index = controlled.findIndex(x => x.data._id == token._id);
-            const tokenToChange = controlled[index];
+            // Gets a array of all controlled tokens
+            //const controlled = canvas.tokens.controlled;
+            // Gets the token at the found index of the conrolled token that trigged the "renderTokenHUD" hook
+            //const index = controlled.findIndex(x => x.id == token._id);
+            //const tokenToChange = controlled[index];
 
-            const dimensions = getTokenDimensions(tokenToChange.document, event.target.dataset.name);
-            const updateInfo = [{ _id: token._id, img: event.target.dataset.name, ...dimensions }];
 
-            canvas.scene.updateEmbeddedDocuments("Token", updateInfo);
+            //const dimensions = getTokenDimensions(tokenToChange, event.target.dataset.name);
+            const update = [{ _id: token._id, img: event.target.dataset.name}];
+
+            canvas.scene.updateEmbeddedDocuments("Token", update);
         });
     });
 });
+
+// Update selected tokens to flip between a 1x1 or a 2x2 grid.
+
+const updates = [];
+for (let token of canvas.tokens.controlled) {
+    let newSize = (token.data.height == 1 && token.data.width == 1) ? 2 : 1;
+    updates.push({
+        _id: token.id,
+        height: newSize,
+        width: newSize
+    });
+};
+
+// use canvas.tokens.updateMany instead of token.update to prevent race conditions
+// (meaning not all updates will be persisted and might only show locally)
+canvas.scene.updateEmbeddedDocuments("Token", updates);
 
 
 const getTokenDimensions = (token, imgName) => {
@@ -65,11 +90,9 @@ const getTokenDimensions = (token, imgName) => {
     const width = imgName.match(/_width(.*)_/)
     const scale = imgName.match(/_scale(.*)_/)
 
-    const prototypeData = token._actor.data.token;
-
     return {
-        height: height ? parseFloat(height[1]) : prototypeData.height,
-        width: width ? parseFloat(width[1]) : prototypeData.width,
-        scale: scale ? parseFloat(scale[1]) : prototypeData.scale,
+        height: height ? parseFloat(height[1]) : token.height,
+        width: width ? parseFloat(width[1]) : token.width,
+        scale: scale ? parseFloat(scale[1]) : token.scale,
     }
 }
