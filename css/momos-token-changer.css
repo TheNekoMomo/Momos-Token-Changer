@@ -11,7 +11,6 @@
     grid-template-columns: 100px 100px 100px;
     overflow-y: auto;
 }
-
 .momos-token-changer-selector-wrap.active {
     visibility: visible !important;
 }
@@ -38,8 +37,14 @@
     opacity: 1 !important;
     filter: grayscale(100%);
 }
-
 .momos-token-changer-button-disabled span, .momos-token-changer-button-disabled:hover img {
     /* opacity: 0.7 !important; */
     color: #CCC;
+}
+
+.momos-token-changer-default {
+    display: none;
+}
+.momos-token-changer-default.active {
+    display: block !important;
 }

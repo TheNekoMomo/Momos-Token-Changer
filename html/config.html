@@ -1,0 +1,13 @@
+<fieldset class="momos-token-changer-default {{#if available}}active{{/if}}">
+    <legend>{{localize 'MomoTokenChanger.Fieldset'}}</legend>
+    <div class="form-group">
+        <label for="texture">{{localize 'MomoTokenChanger.DefaultImageLabel'}}</label>
+        <div class="form-fields">
+                <button type="button" class="file-picker" data-type="imagevideo" data-target="flags.momos-token-changer.default" title="{{localize 'MomoTokenChanger.BrowseFilesButton'}}" tabindex="-1">
+                    <i class="fas fa-file-import fa-fw"></i>
+                </button>
+                <input class="imagevideo" type="text" name="flags.momos-token-changer.default" placeholder="path/image.png" value="{{defaultTokenImage}}"/>
+        </div>
+        <p class="hint">{{localize 'MomoTokenChanger.DefaultImageDescription'}}</p>
+    </div>
+</fieldset>
