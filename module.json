@@ -2,7 +2,7 @@
   "id": "momos-token-changer",
   "title": "Momo's Token Changer",
   "description": "Lets you chnage the token art on the go.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "10",
     "verified": "10"
