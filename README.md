@@ -17,7 +17,7 @@ The module is based off [FVTT-TokenHUBWildcard](https://github.com/javieros105/F
 ## Getting Started
 
 ## How to Install
-The best way to install the Module is using the [Package Manager](#install-with-package-manager-recommended-way-to-install). This allows the Module to be updated in the setup menu with ease.
+The best way to install the Module is using the [Package Manager](#install-with-package-manager-recommended-way-to-install).
 
 ### Install with Package Manager ![Recommended Way to Install](https://img.shields.io/badge/-Recommended%20Way-blue)
 
@@ -58,9 +58,9 @@ To get started using Momos Token Changer:
 
 4. In the Prototype Token Window, click on "Appearance".
 5. Specify your Image Path where you have uploaded a collection of images available to use.
-    - Using ```*``` introduces the wildcard and allows for the feature of the Module to be enabled.
+    - Using ```*``` enables the wildcard.
 6. Enable "Randomize Wildcard Images" under the path. This will enable Momo's Token Changer at the bottom of the token window.
-    - Here, you're able to specify what image is the default image to be used. If left blank, the Module will pick one at random from the specified folder.
+    - Here, you're able to specify what image is the default image to be used. If left blank, foundry will pick one at random from the specified folder.
 
 <p align="center">
   <img src="https://i.imgur.com/F2jQssC.png" />
