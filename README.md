@@ -1,8 +1,10 @@
 # Momos-Token-Changer [![Release Badge](https://img.shields.io/github/v/release/TheNekoMomo/Momos-Token-Changer)](https://github.com/TheNekoMomo/Momos-Token-Changer/releases) ![License Badge](https://img.shields.io/github/license/TheNekoMomo/Momos-Token-Changer)
 
-Momos Token Changer is a Module for Foundry Virtual Tabletop which allows the Game Master and Players to change the token art of Actors on the go. The Module adds a button to the Token HUD which allows the player to change the image displayed on their token at any time.
+Momos Token Changer is a Module for Foundry Virtual Tabletop which adds a button onto the Token HUD if the specified token has ```Randomize Wildcard Images``` enabled and the specified path contains more than 1 image.
 
-The module is based off [FVTT-TokenHUBWildcard](https://github.com/javieros105/FVTT-TokenHUDWildcard) - re-written to work with Foundry V10.
+Clicking the button on the Token HUD opens a new panel which shows all of the images available in the Wildcard path, allowing for the player to select any of these images and change the appearance of their tokens without the hassle of opening the Token Configuration Panel.
+
+The module is originally based off [FVTT-TokenHUBWildcard](https://github.com/javieros105/FVTT-TokenHUDWildcard) - re-written to work with Foundry V10.
 
 ## Table of Contents
 
@@ -11,7 +13,7 @@ The module is based off [FVTT-TokenHUBWildcard](https://github.com/javieros105/F
     * [Install with Package Manager (Recommended Way)](#install-with-package-manager-recommended-way-to-install)
     * [Install with Manifest URL](#install-with-manifest-url)
     * [Enabling the Module](#enabling-the-module)
-  * [How to Use Momos Token Changer](#how-to-use-momos-token-changer)
+  * [How to Use Momos Token Changer](#how-to-use)
   * [License](#license)
 
 ## Getting Started
@@ -45,9 +47,8 @@ If done correctly, Momos Token Changer should appear in the Add-on Modules list.
 
 To enable the Module in your games, launch your World and navigate to the settings panel. Under the Game Settings menu, click on "Manage Modules". From here, you can enable Momos Token Changer!
 
-## How to use Momos Token Changer
+## How to Use
 
-To get started using Momos Token Changer:
 1. Navigate to your Actors Menu.
 2. Click on your Actor to open the Character Sheet.
 3. At the top, click "Prototype Token".
