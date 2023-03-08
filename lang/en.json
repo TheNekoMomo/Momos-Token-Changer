@@ -1,10 +1,13 @@
 {
   "MomoTokenChanger.TokenButton": "Display image options",
+
   "MomoTokenChanger.ImageSelectionDisplayName": "Display as Image",
-  "MomoTokenChanger.ImageSelectionDisplayHint": "Disable to display image selection as a list of names.",
+  "MomoTokenChanger.ImageSelectionDisplayHint": "Disable to display image selection as a list of names",
+  "MomoTokenChanger.AllowSizeChangeName": "Allow Size Change",
+  "MomoTokenChanger.AllowSizeChangeHint": "Disable to not allow the token to change size",
 
   "MomoTokenChanger.Fieldset": "Momo's token changer",
   "MomoTokenChanger.DefaultImageLabel": "Default Image Path",
   "MomoTokenChanger.BrowseFilesButton": "Browse Files",
-  "MomoTokenChanger.DefaultImageDescription": "Set the default image to be used for the Prototype Token."
+  "MomoTokenChanger.DefaultImageDescription": "Set the default image to be used for the Prototype Token"
 }

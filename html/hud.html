@@ -6,7 +6,7 @@
             {{#if image.type}}
             <button class="control-icon momos-token-changer-button-select {{#if image.used}}momos-token-changer-button-disabled active{{/if}}">
                 {{#if ../imageSelectionDisplay}}
-                <img class="momos-token-changer-button-image" src="{{image.route}}" alt="{{image.name}}" data-name="{{image.route}}" />
+                <img class="momos-token-changer-button-image" src="{{image.route}}" alt="{{image.name}}" data-route="{{image.route}}" data-name="{{image.name}}" />
                 {{else}}
                 <span data-name="{{image.route}}">{{image.name}}</span>
                 {{/if}}

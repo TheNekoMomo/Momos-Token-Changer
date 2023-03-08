@@ -1,0 +1,13 @@
+﻿{
+  "MomoTokenChanger.TokenButton": "عرض خيارات الصور",
+
+  "MomoTokenChanger.ImageSelectionDisplayName": "عرض كصورة",
+  "MomoTokenChanger.ImageSelectionDisplayHint": "قم بتعطيل عرض اختيار الصور كقائمة اسماء",
+  "MomoTokenChanger.AllowSizeChangeName": "السماح بتغيير الحجم",
+  "MomoTokenChanger.AllowSizeChangeHint": "تعطيل خاصية اضهار الصور كقائمة اسماء",
+
+  "MomoTokenChanger.Fieldset": "مغير الرموز الخاص بي مومو",
+  "MomoTokenChanger.DefaultImageLabel": "مسار الصور الاصلية",
+  "MomoTokenChanger.BrowseFilesButton": "تصفح الملفات",
+  "MomoTokenChanger.DefaultImageDescription": "قم بتعيين الصورة الافتراضية لاستخدامها في نموذج الرمز المميز."
+}
