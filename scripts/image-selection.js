@@ -140,8 +140,28 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
     let buttons = html.find(".momos-token-changer-button-select");
     buttons.map(function (button) {
         buttons[button].addEventListener("click", function (event) {
-            // When the buttons is clicked it gets the file path to the image and updates the token with it
-            let update = [{ _id: token._id, img: event.target.dataset.name}];
+
+            // gets the file path to the image
+            let update = [{ _id: token._id, texture: { src: event.target.dataset.route } }];
+
+            // checks to see if to use the height and width settings
+            let allowSizeChange = game.settings.get("momos-token-changer", "allowSizeChange");
+            if (allowSizeChange) {
+                // gets the heigth and width within the file name
+                let height = event.target.dataset.name.match(/_height(.*)_/);
+                let width = event.target.dataset.name.match(/_width(.*)_/);
+
+                // checks if the height and width are within the file name
+                // if they are it gets the new height and width
+                // if not it uses the current token hegith and width
+                height = height ? height[1].match(/\d+/) : token.height;
+                width = width ? width[1].match(/\d+/) : token.width;
+
+                // gets the file path to the image along with the new hegith and width
+                update = [{ _id: token._id, texture: { src: event.target.dataset.route }, height: height, width: width }];
+            }
+
+            // updates the token using the update variable
             canvas.scene.updateEmbeddedDocuments("Token", update);
         });
     });
