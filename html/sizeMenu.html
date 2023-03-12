@@ -1,0 +1,32 @@
+<form class="flexcol">
+    <h2>Sizes</h2>
+    <div class="momos-token-changer-size-menu-sizes">
+        {{#each sizes as |size|}}
+        <div class="form-group">
+            <div class="form-fields">
+                <label>{{ localize 'MomoTokenChanger.SizeMenuNameLabel' }}</label>
+                <input class="momos-token-changer-size-menu-name" type="text" placeholder="{{ localize 'MomoTokenChanger.SizeMenuNamePlaceholder' }}" value="{{size.name}}">
+            </div>
+            <br>
+            <div class="form-fields">
+                <label>{{ localize 'MomoTokenChanger.SizeMenuWidthLabel' }}</label>
+                <input class="momos-token-changer-size-menu-width" type="number" placeholder="{{ localize 'MomoTokenChanger.SizeMenuWidthPlaceholder' }}" value="{{size.width}}" min="0.5" max="99" step="0.5">
+            </div>
+            <br>
+            <div class="form-fields">
+                <label>{{ localize 'MomoTokenChanger.SizeMenuHeightLabel' }}</label>
+                <input class="momos-token-changer-size-menu-height" type="number" placeholder="{{ localize 'MomoTokenChanger.SizeMenuHeightPlaceholder' }}" value="{{size.height}}" min="0.5" max="99" step="0.5">
+            </div>
+            <br>
+            <button class="momos-token-changer-size-menu-remove" type="button" name="remove">{{ localize 'MomoTokenChanger.SizeMenuRemoveButton' }}</button>
+        </div>
+        {{/each}}
+    </div>
+    <br>
+    <header>
+        <button class="momos-token-changer-size-menu-add-button" type="button" name="add">{{ localize 'MomoTokenChanger.SizeMenuAddButton' }}</button>
+        <button type="submit" name="submit">
+            <i class="fa fa-check"></i> {{ localize 'MomoTokenChanger.SizeMenuSaveButton' }}
+        </button>
+    </header>
+</form>

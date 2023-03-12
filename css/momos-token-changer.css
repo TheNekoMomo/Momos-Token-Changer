@@ -1,4 +1,14 @@
-.momos-token-changer-selector-wrap {
+.momos-token-changer-button-visual-disabled span, .momos-token-changer-button-visual-disabled img {
+    opacity: 1 !important;
+    filter: grayscale(100%);
+}
+
+.momos-token-changer-button-visual-disabled span, .momos-token-changer-button-visual-disabled:hover img {
+    color: #CCC;
+}
+
+/*Image HUD CSS*/
+.momos-token-changer-image-options-wrap {
     position: absolute;
     left: 75px;
     visibility: hidden;
@@ -9,13 +19,12 @@
     max-height: 350px;
     text-align: start;
     grid-template-columns: 100px 100px 100px;
-    overflow-y: auto;
 }
-.momos-token-changer-selector-wrap.active {
+.momos-token-changer-image-options-wrap.active {
     visibility: visible !important;
 }
 
-.momos-token-changer-button-select {
+.momos-token-changer-image-button {
     max-width: 300px;
     overflow-wrap: break-word;
     padding-top: 0;
@@ -26,25 +35,45 @@
     line-height: 0;
 }
 
-.momos-token-changer-button-image {
+.momos-token-changer-image {
     width: 100px;
     height: 100px;
     margin: 2px;
     object-fit: contain;
 }
 
-.momos-token-changer-button-disabled span, .momos-token-changer-button-disabled img {
-    opacity: 1 !important;
-    filter: grayscale(100%);
-}
-.momos-token-changer-button-disabled span, .momos-token-changer-button-disabled:hover img {
-    /* opacity: 0.7 !important; */
-    color: #CCC;
-}
-
-.momos-token-changer-default {
+/*Image Config CSS*/
+.momos-token-changer-image-config {
     display: none;
 }
-.momos-token-changer-default.active {
+.momos-token-changer-image-config.active {
     display: block !important;
+}
+
+/*Size HUD CSS*/
+.momos-token-changer-size-options-wrap {
+    position: absolute;
+    right: 75px;
+    visibility: hidden;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: max-content;
+    max-width: 355px;
+    max-height: 350px;
+    text-align: center;
+    grid-template-columns: 100px 100px 100px;
+}
+.momos-token-changer-size-options-wrap.active {
+    visibility: visible !important;
+}
+
+.momos-token-changer-size-button {
+    max-width: 300px;
+    overflow-wrap: break-word;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: max-content !important;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
 }

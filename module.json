@@ -1,7 +1,7 @@
 {
   "id": "momos-token-changer",
   "title": "Momo's Token Changer",
-  "description": "Lets you chnage the token art on the go.",
+  "description": "Momos Token Changer is a Module for Foundry Virtual Tabletop which allows the Game Master and Players to change the token art of Actors on the go. The Module adds a button to the Token HUD which allows the player to change the image displayed on their token at any time.",
   "version": "0.1.1",
   "compatibility": {
     "minimum": "10",
@@ -15,8 +15,9 @@
     }
   ],
   "scripts": [
+    "scripts/setup.js",
     "scripts/image-selection.js",
-    "scripts/settings.js"
+    "scripts/size-selection.js"
   ],
   "styles": [
     "css/momos-token-changer.css"

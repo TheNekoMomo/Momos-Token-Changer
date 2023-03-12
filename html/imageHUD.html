@@ -1,0 +1,16 @@
+<div class="control-icon" data-action="momos-token-changer-image-options-button">
+    <img src="modules/momos-token-changer/img/token-icon.webp" width="36" height="36" title="{{localize 'MomoTokenChanger.ImageHUDButton' }}" />
+
+    <div class="momos-token-changer-image-options-wrap">
+        {{#each parsedImages as |image|}}
+            <button class="control-icon momos-token-changer-image-button {{#if image.used}}momos-token-changer-button-visual-disabled active{{/if}}">
+                {{#if ../imageSelectionDisplay}}
+                    <img class="momos-token-changer-image" src="{{image.route}}" alt="{{image.name}}" data-route="{{image.route}}" data-name="{{image.name}}" />
+                {{else}}
+                    <span data-route="{{image.route}}" data-name="{{image.name}}">{{image.name}}</span>
+                {{/if}}
+            </button>
+        {{/each}}
+    </div>
+
+</div>

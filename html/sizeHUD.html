@@ -1,0 +1,12 @@
+<div class="control-icon" data-action="momos-token-changer-size-options-button">
+    <img src="modules/momos-token-changer/img/token-icon.webp" width="36" height="36" title="{{localize 'MomoTokenChanger.SizeHUDButton' }}" />
+
+    <div class="momos-token-changer-size-options-wrap">
+        {{#each parsedSizes as |size|}}
+        <button class="control-icon momos-token-changer-size-button {{#if size.used}}momos-token-changer-button-visual-disabled active{{/if}}">
+            <span data-width="{{size.width}}" data-height="{{size.height}}">{{size.name}}</span>
+        </button>
+        {{/each}}
+    </div>
+
+</div>

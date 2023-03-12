@@ -1,23 +1,20 @@
 const FVTTVaildImageTypes = ["jpg", "jpeg", "png", "svg", "webp"]; // Array of vaild image file types for FVTT
 const FVTTVaildVideoTypes = ["webm", "mp4", "m4v"]; // Array of vaild video file types for FVTT
 
-console.log("%c Momo's Token Changer: Loaded", "color: green; font-size: 15px");
-
-// Sets and Gets the DefaultToken data to/from the flag
-const DefaultToken = {
-    getDefaultToken: async function (token) {
-        let flag = token.getFlag("momos-token-changer", "defaultToken") || "";
-        return flag;
-    },
-    setDefaultToken: async function (token, flag) {
-        await token.setFlag("momos-token-changer", "defaultToken", flag);
-    }
+// Gets the default token image
+async function getDefaultTokenImage(token) {
+    let flag = token.getFlag("momos-token-changer", "defaultToken") || "";
+    return flag;
+};
+// Sets the default token image
+async function setDefaultTokenImage(token, flag) {
+    await token.setFlag("momos-token-changer", "defaultToken", flag);
 };
 
-// fires when the token config window is loaded
-Hooks.on("renderTokenConfig", async function (config, html) {
+// Creats the default token config settings in the prototype token
+async function defaultTokenConfig(config, html) {
     // gets the DefaultToken data
-    let defaultTokenImage = await DefaultToken.getDefaultToken(config.token);
+    let defaultTokenImage = await getDefaultTokenImage(config.token);
 
     // finds html fields that get used later on
     let imageDataTab = html.find('.tab[data-tab="appearance"]');
@@ -25,9 +22,9 @@ Hooks.on("renderTokenConfig", async function (config, html) {
     let updateTokenButton = html.find('button[type="submit"]');
 
     // loads, adds and gets the field of the HTML code for the config
-    let configDisplayHTML = await renderTemplate("/modules/momos-token-changer/html/config.html", { defaultTokenImage, available: wildcardCheckBox[0].checked });
+    let configDisplayHTML = await renderTemplate("/modules/momos-token-changer/html/imageConfig.html", { defaultTokenImage, available: wildcardCheckBox[0].checked });
     imageDataTab.append(configDisplayHTML);
-    let configDisplay = imageDataTab.find(".momos-token-changer-default");
+    let configDisplay = imageDataTab.find(".momos-token-changer-image-config");
 
     // gets the input filed for the file path to the DefaultToken image
     let imageInputFiled = configDisplay.find("input")[0];
@@ -40,7 +37,7 @@ Hooks.on("renderTokenConfig", async function (config, html) {
     // updates the DefaultToken data if it has been changed when the Update Token Button is clicked
     updateTokenButton.click(function (event) {
         if (defaultTokenImage !== imageInputFiled.value) {
-            DefaultToken.setDefaultToken(config.token, imageInputFiled.value);
+            setDefaultTokenImage(config.token, imageInputFiled.value);
             console.log("Updated DefaultToken to '" + imageInputFiled.value + "'");
         }
     });
@@ -54,33 +51,29 @@ Hooks.on("renderTokenConfig", async function (config, html) {
             configDisplay[0].classList.remove("active");
         }
     });
-});
+};
 
-// fires before a token is made
-Hooks.on("preCreateToken", async function (parent, data, options, userId) {
+// Modify then token before it is created to show the default token
+async function checkDefaultToken(parent, data) {
     // gets the DefaultToken data
-    let defaultTokenImage = await DefaultToken.getDefaultToken(parent.actor.prototypeToken);
+    let defaultTokenImage = await getDefaultTokenImage(parent.actor.prototypeToken);
 
     // checks if the DefaultToken  is set to blank and is set to randomImg
     if (defaultTokenImage !== "" && parent.actor.prototypeToken.randomImg) {
-        console.log("Setting DefaultToken");
 
         // updates the token data before it is made to set the image to what is set in the DefaultToken data
         let update = { actorId: data.actorId, texture: { src: defaultTokenImage } };
         parent.updateSource(update);
     }
-});
+}
 
-// fires when the token HUD is called to be rended
-Hooks.on("renderTokenHUD", async function (hud, html, token) {
-
+// Adds the image selection tab in the bottom right of the token hud
+async function imageSelection(html, token) {
     // Gets an array of images that the token can use and checks if they are 2 or more
     let images = await game.actors.get(token.actorId)?.getTokenImages() ?? [];
     if (images.length < 2) {
         return;
     }
-
-    console.log("Adding Image Selection Display to Token HUD");
 
     // Gets the settings for if to display the image or the path
     let imageSelectionDisplay = game.settings.get("momos-token-changer", "imageSelectionDisplay");
@@ -98,7 +91,7 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
 
         // checks the file extension is of a vaild type for use in FVTT
         let isVaildImageExtensions = FVTTVaildImageTypes.includes(fileExtensions);
-        let isVaildVideoExtensions = FVTTVaildImageTypes.includes(fileExtensions);
+        let isVaildVideoExtensions = FVTTVaildVideoTypes.includes(fileExtensions);
 
         // returns all the data
         return {
@@ -112,7 +105,7 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
     });
 
     // Adds the HTML in for the new button and image options screen
-    let wildcardDisplayHTML = await renderTemplate("/modules/momos-token-changer/html/hud.html", { imageSelectionDisplay, parsedImages });
+    let wildcardDisplayHTML = await renderTemplate("/modules/momos-token-changer/html/imageHUD.html", { imageSelectionDisplay, parsedImages });
 
     html.find("div.right").append(wildcardDisplayHTML).click(function (event) {
         // gets the stats of the button clicked to check them
@@ -120,24 +113,23 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
         for (let button of html.find("div.control-icon")) {
             if (button.classList.contains("active")) activeButton = button;
             if (button === event.target.parentElement) clickedButton = button;
-            if (button.dataset.action === "momos-token-changer-selector") tokenButton = button;
+            if (button.dataset.action === "momos-token-changer-image-options-button") tokenButton = button;
         }
 
         // checks to see if the button clicked is the button we made
         // checks if the button is active; if not it sets it as active, otherwise it is it removes active
         if (clickedButton === tokenButton && activeButton !== tokenButton) {
             clickedButton.classList.add("active");
-            html.find(".momos-token-changer-selector-wrap")[0].classList.add("active");
+            html.find(".momos-token-changer-image-options-wrap")[0].classList.add("active");
         }
-        else if (clickedButton === tokenButton)
-        {
+        else if (clickedButton === tokenButton) {
             clickedButton.classList.remove("active");
-            html.find(".momos-token-changer-selector-wrap")[0].classList.remove("active");
+            html.find(".momos-token-changer-image-options-wrap")[0].classList.remove("active");
         }
     });
 
-    // Finds all the buttons marked with the class "momos-token-changer-button-select" and adds a click event to them.
-    let buttons = html.find(".momos-token-changer-button-select");
+    // Finds all the buttons marked with the class "momos-token-changer-image-button" and adds a click event to them.
+    let buttons = html.find(".momos-token-changer-image-button");
     buttons.map(function (button) {
         buttons[button].addEventListener("click", function (event) {
 
@@ -157,6 +149,15 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
                 height = height ? height[1].match(/\d+/) : token.height;
                 width = width ? width[1].match(/\d+/) : token.width;
 
+                // caps the height and width to a max of 99
+                height = height >= 99 ? 99 : height;
+                width = width >= 99 ? 99 : width;
+
+                // notify the user about large sizes
+                if (height >= 50 || width >= 50) {
+                    ui.notifications.warn("momos-token-changer: A large size might cause issues.");
+                }
+
                 // gets the file path to the image along with the new hegith and width
                 update = [{ _id: token._id, texture: { src: event.target.dataset.route }, height: height, width: width }];
             }
@@ -165,4 +166,4 @@ Hooks.on("renderTokenHUD", async function (hud, html, token) {
             canvas.scene.updateEmbeddedDocuments("Token", update);
         });
     });
-});
+};
