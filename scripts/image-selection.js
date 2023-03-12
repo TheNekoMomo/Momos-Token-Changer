@@ -137,7 +137,7 @@ async function imageSelection(html, token) {
             let update = [{ _id: token._id, texture: { src: event.target.dataset.route } }];
 
             // checks to see if to use the height and width settings
-            let allowSizeChange = game.settings.get("momos-token-changer", "allowSizeChange");
+            let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission");
             if (allowSizeChange) {
                 // gets the heigth and width within the file name
                 let height = event.target.dataset.name.match(/_height(.*)_/);

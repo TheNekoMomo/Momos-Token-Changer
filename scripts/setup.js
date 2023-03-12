@@ -50,8 +50,7 @@ class MomoTokenChangerSizeMenu extends FormApplication {
             data = {
                 sizes: [
                     { name: "Tiny", width: 0.5, height: 0.5 },
-                    { name: "Small", width: 1, height: 1 },
-                    { name: "Medium", width: 1, height: 1 },
+                    { name: "Small/Medium", width: 1, height: 1 },
                     { name: "Large", width: 2, height: 2 },
                     { name: "Huge", width: 3, height: 3 },
                     { name: "Gargantuan", width: 4, height: 4 }
@@ -102,18 +101,19 @@ class MomoTokenChangerSizeMenu extends FormApplication {
 };
 
 function registerSettings() {
+    game.settings.register("momos-token-changer", "sizeChangePermission", {
+        name: game.i18n.format("MomoTokenChanger.SizeChangePermissionName"),
+        hint: game.i18n.format("MomoTokenChanger.SizeChangePermissionHint"),
+        scope: "world",
+        config: true,
+        type: String,
+        default: "1",
+        choices: { 1: "Player", 2: "Trusted", 3: "Assistant", 4: "Game Master" }
+    });
     game.settings.register("momos-token-changer", "imageSelectionDisplay", {
         name: game.i18n.format("MomoTokenChanger.ImageSelectionDisplayName"),
         hint: game.i18n.format("MomoTokenChanger.ImageSelectionDisplayHint"),
         scope: "client",
-        config: true,
-        type: Boolean,
-        default: true
-    });
-    game.settings.register("momos-token-changer", "allowSizeChange", {
-        name: game.i18n.format("MomoTokenChanger.AllowSizeChangeName"),
-        hint: game.i18n.format("MomoTokenChanger.AllowSizeChangeHint"),
-        scope: "world",
         config: true,
         type: Boolean,
         default: true
@@ -125,8 +125,7 @@ function registerSettings() {
         default: {
             sizes:[
                 { name: "Tiny", width: 0.5, height: 0.5 },
-                { name: "Small", width: 1, height: 1 },
-                { name: "Medium", width: 1, height: 1 },
+                { name: "Small/Medium", width: 1, height: 1 },
                 { name: "Large", width: 2, height: 2 },
                 { name: "Huge", width: 3, height: 3 },
                 { name: "Gargantuan", width: 4, height: 4 }
@@ -160,5 +159,5 @@ Hooks.on("preCreateToken", async function (parent, data, options, userId) {
 // fires when the token HUD is called to be rended
 Hooks.on("renderTokenHUD", async function (hud, html, token) {
     imageSelection(html, token);
-    sizeSelection(html, token);
+    sizeSelection(hud, html, token);
 });

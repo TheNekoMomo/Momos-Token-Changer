@@ -1,13 +1,25 @@
 ﻿{
-  "MomoTokenChanger.ImageHUDButton": "عرض خيارات الصور",
+  "MomoTokenChanger.SizeMenuNameLabel": " الاسم",
+  "MomoTokenChanger.SizeMenuNamePlaceholder": "الحجم..",
+  "MomoTokenChanger.SizeMenuWidthLabel": "العرض",
+  "MomoTokenChanger.SizeMenuWidthPlaceholder": "4",
+  "MomoTokenChanger.SizeMenuHeightLabel": "الطول",
+  "MomoTokenChanger.SizeMenuHeightPlaceholder": "4",
+  "MomoTokenChanger.SizeMenuRemoveButton": "ازالاة",
+  "MomoTokenChanger.SizeMenuAddButton": "اضافة",
+  "MomoTokenChanger.SizeMenuSaveButton": "تخزين",
 
   "MomoTokenChanger.ImageSelectionDisplayName": "عرض كصورة",
   "MomoTokenChanger.ImageSelectionDisplayHint": "قم بتعطيل عرض اختيار الصور كقائمة اسماء",
-  "MomoTokenChanger.AllowSizeChangeName": "السماح بتغيير الحجم",
-  "MomoTokenChanger.AllowSizeChangeHint": "تعطيل خاصية اضهار الصور كقائمة اسماء",
+  "MomoTokenChanger.SizeChangePermissionName": "صلاحيات تغير الحجم ",
+  "MomoTokenChanger.SizeChangePermissionHint": "الصلاحيات المحتاج لتغير حجم الرمز",
+
+  "MomoTokenChanger.ImageHUDButton": "عرض خيارات الصور",
 
   "MomoTokenChanger.Fieldset": "مغير الرموز الخاص بي مومو",
   "MomoTokenChanger.DefaultImageLabel": "مسار الصور الاصلية",
   "MomoTokenChanger.BrowseFilesButton": "تصفح الملفات",
-  "MomoTokenChanger.DefaultImageDescription": "قم بتعيين الصورة الافتراضية لاستخدامها في نموذج الرمز المميز."
+  "MomoTokenChanger.DefaultImageDescription": "قم بتعيين الصورة الافتراضية لاستخدامها في نموذج الرمز المميز.",
+
+  "MomoTokenChanger.SizeHUDButton": "اضهار خيارات الحجم"
 }

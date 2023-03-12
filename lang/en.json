@@ -11,8 +11,8 @@
 
   "MomoTokenChanger.ImageSelectionDisplayName": "Display as Image",
   "MomoTokenChanger.ImageSelectionDisplayHint": "Disable to display image selection as a list of names",
-  "MomoTokenChanger.AllowSizeChangeName": "Allow Size Change",
-  "MomoTokenChanger.AllowSizeChangeHint": "Disable to not allow the token to change size",
+  "MomoTokenChanger.SizeChangePermissionName": "Size change permission level",
+  "MomoTokenChanger.SizeChangePermissionHint": "The permission level needed to change size of the token",
 
   "MomoTokenChanger.ImageHUDButton": "Display image options",
 
