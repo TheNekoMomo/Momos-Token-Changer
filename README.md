@@ -11,7 +11,7 @@ The module is originally based off [FVTT-TokenHUBWildcard](https://github.com/ja
 * [Momos-Token-Changer](#momos-token-changer-release-badge-license-badge)
   * [Getting Started](#getting-started)
     * [Install with Package Manager (Recommended Way)](#install-with-package-manager-recommended-way-to-install)
-    * [Install with Manifest URL](#install-with-manifest-url)
+    * [Other Install Methods](#unable-to-install-with-package-manager)
     * [Enabling the Module](#enabling-the-module)
   * [How to Use Momos Token Changer](#how-to-use)
   * [License](#license)
@@ -28,45 +28,25 @@ The best way to install the Module is using the [Package Manager](#install-with-
 3. Click the "Install Module" button at the bottom of the page.
 4. Search for ```Momos Token Changer``` in the Package Name textbox.
 5. Click "Install".
-
-### Install with Manifest URL ![Alternative Way to Install](https://img.shields.io/badge/-Alternative%20Way-orange)
-
-1. Head to your Foundry VTT Configuration and Setup Screen.
-2. Click on "Add-on Modules" in the navigation.
-3. Click the "Install Module" button at the bottom of the page.
-4. In the textbox beside "Manifest URL:", copy and paste the following:
-    ```TEXT
-    https://raw.githubusercontent.com/TheNekoMomo/Momos-Token-Changer/main/module.json
-    ```
-5. Click the "Install" button beside the textbox.
  
 If done correctly, Momos Token Changer should appear in the Add-on Modules list. Follow the instructions in [Enabling the Module](#enabling-the-module) to enable the Module in your Game.
 
+#### Unable to Install with Package Manager?
+Need a different way to install Momos Token Changer? Visit the [Wiki / How To Install](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/How-to-Install)!
 
 ### Enabling the Module
 
-To enable the Module in your games, launch your World and navigate to the settings panel. Under the Game Settings menu, click on "Manage Modules". From here, you can enable Momos Token Changer!
+Modules can only be activated from within a loaded and active game world. To activate a module, load a game world and log in as a user with gamemaster level permissions. Then, from the configuration sidebar select the Manage Modules button. This will open the module management panel. From here you can see all currently available, active, and inactive modules.
+
+To enable Momos Token Changer, tick the box next to the module name and then click Save Module Settings. This will reload the world with the selected module active in the game world.
 
 ## How to Use
 
-1. Navigate to your Actors Menu.
-2. Click on your Actor to open the Character Sheet.
-3. At the top, click "Prototype Token".
+We have a [wiki](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki) with pages covering features of the module. Head over to it by clicking the wiki button above or clicking on one of the links below.
 
-<p align="center">
-  <img src="https://i.imgur.com/dFLvvaQ.png" />
-</p>
-
-4. In the Prototype Token Window, click on "Appearance".
-5. Specify your Image Path where you have uploaded a collection of images available to use.
-    - Using ```*``` enables the wildcard.
-6. Enable "Randomize Wildcard Images" under the path. This will enable Momo's Token Changer at the bottom of the token window.
-    - Here, you're able to specify what image is the default image to be used. If left blank, foundry will pick one at random from the specified folder.
-
-<p align="center">
-  <img src="https://i.imgur.com/F2jQssC.png" />
-</p>
-
+- [Applying a Wildcard to the Prototype Token](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Wildcard-Images-for-Token)
+- [Change the Size of a Token via the File Name](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Token-Size-via-Filename)
+- [Change the Size of a Toekn via the HUD](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Change-Size-via-HUD) (todo: documentation to be updated)
 
 ## License
 Momos Token Changer is licensed under the MIT License (see [LICENSE](LICENSE)).
