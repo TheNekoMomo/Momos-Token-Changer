@@ -11,6 +11,40 @@ async function setDefaultTokenImage(token, flag) {
     await token.setFlag("momos-token-changer", "defaultToken", flag);
 };
 
+function getTokenSizeScale(token, imagePath) {
+
+    console.log(token);
+
+    let filePath = imagePath.split("/");
+    let fileName = filePath[filePath.length - 1];
+
+    // gets the heigth and width within the file name
+    let height = fileName.match(/_height(.*)_/);
+    let width = fileName.match(/_width(.*)_/);
+    let scale = fileName.match(/_scale(.*)_/);
+
+    // checks if the height and width are within the file name
+    // if they are it gets the new height and width
+    // if not it uses the current token hegith and width
+    height = height ? height[1].match(/\d+/) : token.height;
+    width = width ? width[1].match(/\d+/) : token.width;
+    let scaleY = scale ? scale[1].match(/\d+/) : token.texture.scaleY;
+    let scaleX = scale ? scale[1].match(/\d+/) : token.texture.scaleX;
+
+    // caps the height and width to a max of 99
+    height = height >= 99 ? 99 : height;
+    width = width >= 99 ? 99 : width;
+    scaleY = scaleY >= 99 ? 99 : scaleY;
+    scaleX = scaleX >= 99 ? 99 : scaleX;
+
+    // notify the user about large sizes
+    if (height >= 50 || width >= 50 || scaleY >= 50 || scaleX >= 50) {
+        ui.notifications.warn("momos-token-changer: A large size might cause issues.");
+    }
+
+    return { height: height, width: width, scaleY: scaleY, scaleX: scaleX }
+}
+
 // Creats the default token config settings in the prototype token
 async function defaultTokenConfig(config, html) {
     // gets the DefaultToken data
@@ -20,6 +54,10 @@ async function defaultTokenConfig(config, html) {
     let imageDataTab = html.find('.tab[data-tab="appearance"]');
     let wildcardCheckBox = imageDataTab.find('input[name="randomImg"]');
     let updateTokenButton = html.find('button[type="submit"]');
+
+    if (wildcardCheckBox[0] == null) {
+        return;
+    }
 
     // loads, adds and gets the field of the HTML code for the config
     let configDisplayHTML = await renderTemplate("/modules/momos-token-changer/html/imageConfig.html", { defaultTokenImage, available: wildcardCheckBox[0].checked });
@@ -58,11 +96,22 @@ async function checkDefaultToken(parent, data) {
     // gets the DefaultToken data
     let defaultTokenImage = await getDefaultTokenImage(parent.actor.prototypeToken);
 
-    // checks if the DefaultToken  is set to blank and is set to randomImg
+    // checks if the DefaultToken is set to blank and is set to randomImg
     if (defaultTokenImage !== "" && parent.actor.prototypeToken.randomImg) {
 
-        // updates the token data before it is made to set the image to what is set in the DefaultToken data
         let update = { actorId: data.actorId, texture: { src: defaultTokenImage } };
+
+        let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission");
+        if (allowSizeChange) {
+            let tokenSizeScale = getTokenSizeScale(data, defaultTokenImage);
+
+            update = {
+                actorId: data.actorId,
+                texture: { src: defaultTokenImage, scaleY: tokenSizeScale.scaleY, scaleX: tokenSizeScale.scaleX },
+                height: tokenSizeScale.height, width: tokenSizeScale.width
+            };
+        }
+
         parent.updateSource(update);
     }
 }
@@ -139,27 +188,15 @@ async function imageSelection(html, token) {
             // checks to see if to use the height and width settings
             let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission");
             if (allowSizeChange) {
-                // gets the heigth and width within the file name
-                let height = event.target.dataset.name.match(/_height(.*)_/);
-                let width = event.target.dataset.name.match(/_width(.*)_/);
 
-                // checks if the height and width are within the file name
-                // if they are it gets the new height and width
-                // if not it uses the current token hegith and width
-                height = height ? height[1].match(/\d+/) : token.height;
-                width = width ? width[1].match(/\d+/) : token.width;
-
-                // caps the height and width to a max of 99
-                height = height >= 99 ? 99 : height;
-                width = width >= 99 ? 99 : width;
-
-                // notify the user about large sizes
-                if (height >= 50 || width >= 50) {
-                    ui.notifications.warn("momos-token-changer: A large size might cause issues.");
-                }
+                let tokenSizeScale = getTokenSizeScale(token, event.target.dataset.route);
 
                 // gets the file path to the image along with the new hegith and width
-                update = [{ _id: token._id, texture: { src: event.target.dataset.route }, height: height, width: width }];
+                update = [{
+                    _id: token._id,
+                    texture: { src: event.target.dataset.route, scaleY: tokenSizeScale.scaleY, scaleX: tokenSizeScale.scaleX },
+                    height: tokenSizeScale.height, width: tokenSizeScale.width
+                }];
             }
 
             // updates the token using the update variable
