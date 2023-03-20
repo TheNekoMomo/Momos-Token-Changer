@@ -13,8 +13,6 @@ async function setDefaultTokenImage(token, flag) {
 
 function getTokenSizeScale(token, imagePath) {
 
-    console.log(token);
-
     let filePath = imagePath.split("/");
     let fileName = filePath[filePath.length - 1];
 
@@ -28,8 +26,8 @@ function getTokenSizeScale(token, imagePath) {
     // if not it uses the current token hegith and width
     height = height ? height[1].match(/\d+/) : token.height;
     width = width ? width[1].match(/\d+/) : token.width;
-    let scaleY = scale ? scale[1].match(/\d+/) : token.texture.scaleY;
-    let scaleX = scale ? scale[1].match(/\d+/) : token.texture.scaleX;
+    let scaleY = scale ? scale[1].match(/^\d+(\.\d{1,2})?$/)[0] : token.texture.scaleY;
+    let scaleX = scale ? scale[1].match(/^\d+(\.\d{1,2})?$/)[0] : token.texture.scaleX;
 
     // caps the height and width to a max of 99
     height = height >= 99 ? 99 : height;
