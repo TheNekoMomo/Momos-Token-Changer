@@ -46,7 +46,7 @@ We have a [wiki](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki) with p
 
 - [Applying a Wildcard to the Prototype Token](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Wildcard-Images-for-Token)
 - [Change the Size of a Token via the File Name](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Token-Size-via-Filename)
-- [Change the Size of a Toekn via the HUD](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Change-Size-via-HUD) (todo: documentation to be updated)
+- [Change the Size of a Token via the HUD](https://github.com/TheNekoMomo/Momos-Token-Changer/wiki/Change-Size-via-HUD) (todo: documentation to be updated)
 
 ## License
 Momos Token Changer is licensed under the MIT License (see [LICENSE](LICENSE)).
