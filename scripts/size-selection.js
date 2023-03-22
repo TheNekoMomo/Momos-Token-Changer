@@ -1,7 +1,12 @@
-async function sizeSelection(hud, html, token) {
+async function sizeSelection(html, token) {
 
-    let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission")
+    let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission");
     if (!allowSizeChange) {
+        return;
+    }
+
+    let displayButton = game.settings.get("momos-token-changer", "sizeSelectionDisplay");
+    if (!displayButton) {
         return;
     }
 

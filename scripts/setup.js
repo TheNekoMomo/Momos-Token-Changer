@@ -110,6 +110,14 @@ function registerSettings() {
         default: "1",
         choices: { 1: "Player", 2: "Trusted", 3: "Assistant", 4: "Game Master" }
     });
+    game.settings.register("momos-token-changer", "sizeSelectionDisplay", {
+        name: game.i18n.format("MomoTokenChanger.SizeSelectionDisplayName"),
+        hint: game.i18n.format("MomoTokenChanger.SizeSelectionDisplayHint"),
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: true
+    });
     game.settings.register("momos-token-changer", "imageSelectionDisplay", {
         name: game.i18n.format("MomoTokenChanger.ImageSelectionDisplayName"),
         hint: game.i18n.format("MomoTokenChanger.ImageSelectionDisplayHint"),
@@ -159,5 +167,5 @@ Hooks.on("preCreateToken", async function (parent, data, options, userId) {
 // fires when the token HUD is called to be rended
 Hooks.on("renderTokenHUD", async function (hud, html, token) {
     imageSelection(html, token);
-    sizeSelection(hud, html, token);
+    sizeSelection(html, token);
 });
