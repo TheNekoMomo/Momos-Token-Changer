@@ -19,6 +19,7 @@
     max-height: 350px;
     text-align: start;
     grid-template-columns: 100px 100px 100px;
+    overflow-y: auto;
 }
 .momos-token-changer-image-options-wrap.active {
     visibility: visible !important;
