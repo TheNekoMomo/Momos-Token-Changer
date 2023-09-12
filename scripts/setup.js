@@ -1,6 +1,3 @@
-
-console.log("%c Momo's Token Changer: Loaded", "color: green; font-size: 15px");
-
 class MomoTokenChangerSizeMenu extends FormApplication {
     constructor() {
         super({});
@@ -151,6 +148,7 @@ function registerSettings() {
 };
 
 Hooks.on("init", function () {
+    console.log("%c Momo's Token Changer: Loaded", "color: green; font-size: 15px");
     registerSettings();
 });
 
@@ -160,8 +158,8 @@ Hooks.on("renderTokenConfig", async function (config, html) {
 });
 
 // fires before a token is made
-Hooks.on("preCreateToken", async function (parent, data, options, userId) {
-    checkDefaultToken(parent, data);
+Hooks.on("createToken", async function (document, options, userId) {
+    checkDefaultToken(document);
 });
 
 // fires when the token HUD is called to be rended

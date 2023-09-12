@@ -1,14 +1,26 @@
 const FVTTVaildImageTypes = ["jpg", "jpeg", "png", "svg", "webp"]; // Array of vaild image file types for FVTT
 const FVTTVaildVideoTypes = ["webm", "mp4", "m4v"]; // Array of vaild video file types for FVTT
 
-// Gets the default token image
+// Gets/Sets the default token image
 async function getDefaultTokenImage(token) {
     let flag = token.getFlag("momos-token-changer", "defaultToken") || "";
     return flag;
 };
-// Sets the default token image
 async function setDefaultTokenImage(token, flag) {
     await token.setFlag("momos-token-changer", "defaultToken", flag);
+};
+
+// Gets/Sets the default token size
+async function getDefaultTokenSize(token) {
+    let _height = token.getFlag("momos-token-changer", "defaultHeight");
+    let _width = token.getFlag("momos-token-changer", "defaultWidth");
+    return { height: _height, width:_width }
+};
+async function setDefaultTokenSize(token, height, width) {
+
+    let setHeight = token.setFlag("momos-token-changer", "defaultHeight", height);
+    let setWidth = token.setFlag("momos-token-changer", "defaultWidth", width);
+    Promise.all([setHeight, setWidth]);
 };
 
 function getTokenSizeScale(token, imagePath) {
@@ -89,28 +101,29 @@ async function defaultTokenConfig(config, html) {
     });
 };
 
-// Modify then token before it is created to show the default token
-async function checkDefaultToken(parent, data) {
+// Modify then token after it is created to show the default token
+async function checkDefaultToken(document) {
+
     // gets the DefaultToken data
-    let defaultTokenImage = await getDefaultTokenImage(parent.actor.prototypeToken);
+    let defaultTokenImage = await getDefaultTokenImage(document);
 
-    // checks if the DefaultToken is set to blank and is set to randomImg
-    if (defaultTokenImage !== "" && parent.actor.prototypeToken.randomImg) {
-
-        let update = { actorId: data.actorId, texture: { src: defaultTokenImage } };
+    // checks if the DefaultToken is not set to blank and is set to randomImg
+    // TODO: should be or not and?
+    if (defaultTokenImage !== "" && document.actor.prototypeToken.randomImg) {
+        let update = [{ _id: document._id, texture: { src: defaultTokenImage } }];
 
         let allowSizeChange = game.users.current.role >= game.settings.get("momos-token-changer", "sizeChangePermission");
         if (allowSizeChange) {
-            let tokenSizeScale = getTokenSizeScale(data, defaultTokenImage);
+            let tokenSizeScale = getTokenSizeScale(document, defaultTokenImage);
 
-            update = {
-                actorId: data.actorId,
+            update = [{
+                _id: document._id,
                 texture: { src: defaultTokenImage, scaleY: tokenSizeScale.scaleY, scaleX: tokenSizeScale.scaleX },
                 height: tokenSizeScale.height, width: tokenSizeScale.width
-            };
+            }];
         }
 
-        parent.updateSource(update);
+        canvas.scene.updateEmbeddedDocuments("Token", update);
     }
 }
 
